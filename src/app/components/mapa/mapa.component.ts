@@ -70,6 +70,25 @@ export class MapaComponent implements OnInit {
     .setLngLat([marcador.lng, marcador.lat])
     .setPopup(customPopup)
     .addTo(this.mapa);
+
+    marker.on('drag', () => {
+      const lngLat = marker.getLngLat();
+      console.log(lngLat);
+
+      // TODO: crear evento para emitir las coordenadas de este marcador
+    });
+  }
+
+  crearMarcador() {
+    const customMarker: Lugar = {
+      id: new Date().toISOString(),
+      lng: -75.75512993582937,
+      lat: 45.349977429009954,
+      nombre: 'Sin Nombre',
+      color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+    };
+
+    this.agregarMarcador(customMarker);
   }
 
 }
