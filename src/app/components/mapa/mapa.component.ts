@@ -40,7 +40,9 @@ export class MapaComponent implements OnInit {
       this.agregarMarcador(marcador);
     });
 
-    // TODO: marcador-mover
+    this.wsService.listen('mb-marcador-mover').subscribe((marcador: Lugar) => {
+      this.markersMapbox[marcador.id].setLngLat([marcador.lng, marcador.lat]);
+    });
 
     this.wsService.listen('mb-marcador-borrar').subscribe((id: string) => {
       this.markersMapbox[id].remove();
@@ -94,8 +96,11 @@ export class MapaComponent implements OnInit {
     marker.on('drag', () => {
       const lngLat = marker.getLngLat();
       console.log(lngLat);
-
-      // TODO: crear evento para emitir las coordenadas de este marcador
+      const nuevoMarcador = {
+        id: marcador.id,
+        ...lngLat
+      };
+      this.wsService.emit('mb-marcador-mover', nuevoMarcador);
     });
 
     btnBorrar.addEventListener('click', () => {
