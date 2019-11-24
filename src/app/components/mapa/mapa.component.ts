@@ -60,7 +60,7 @@ export class MapaComponent implements OnInit {
     });
 
     // [key, marcador] destructuracion de arrays
-    for(const [key, marcador] of Object.entries (this.lugares)) {
+    for (const [key, marcador] of Object.entries (this.lugares)) {
       this.agregarMarcador(marcador);
     }
   }
