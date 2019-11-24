@@ -30,11 +30,16 @@ export class MapaComponent implements OnInit {
       this.lugares = lugares;
       this.crearMapa();
     });
+    this.escucharSockets();
   }
 
   escucharSockets() {
 
     // TODO: marcador-nuevo
+    this.wsService.listen('mb-marcador-nuevo').subscribe((marcador: Lugar) => {
+      console.log(marcador);
+      this.agregarMarcador(marcador);
+    });
 
     // TODO: marcador-mover
 
